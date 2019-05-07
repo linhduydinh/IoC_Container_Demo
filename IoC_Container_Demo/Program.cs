@@ -10,8 +10,13 @@ namespace IoC_Container_Demo
 	{
 		static void Main(string[] args)
 		{
-			IPersonReader personReader = new DocumentReader();
-			var person = new Person(personReader);
+			Resolver resolver = new Resolver();
+
+			resolver.Register<Person, Person>();
+			//resolver.Register<IPersonReader, SQLReader>();
+			resolver.Register<IPersonReader, DocumentReader>();
+
+			var person = resolver.Resolve<Person>();
 			person.GetPeople();
 
 			Console.Read();
